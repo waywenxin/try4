@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI 計算機</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>BMI 計算機</h1>
+  <label>身高（公分）</label>
+  <input type="number" id="height" placeholder="例如：170" />
+
+  <label>體重（公斤）</label>
+  <input type="number" id="weight" placeholder="例如：65" />
+
+  <button onclick="calculateBMI()">計算 BMI</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const resultDiv = document.getElementById("result");
+
+      if (!height || !weight) {
+        resultDiv.textContent = "請輸入完整的身高與體重。";
+        return;
+      }
+
+      const heightM = height / 100;
+      const bmi = weight / (heightM * heightM);
+      const roundedBMI = bmi.toFixed(2);
+
+      let category = "";
+      if (bmi < 18.5) {
+        category = "過輕";
+      } else if (bmi < 24) {
+        category = "正常";
+      } else if (bmi < 27) {
+        category = "過重";
+      } else {
+        category = "肥胖";
+      }
+
+      resultDiv.textContent = `你的 BMI 是 ${roundedBMI}，屬於「${category}」範圍。`;
+    }
+  </script>
+</body>
+</html>
